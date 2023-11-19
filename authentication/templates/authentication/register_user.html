@@ -1,0 +1,27 @@
+{% extends 'main.html' %} {% block content %}
+<div class="container">
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form>
+    <h3>Register</h3>
+
+    <label for="username">Username</label>
+    <input type="text" placeholder="Username" id="username" />
+
+    <label for="email">Username</label>
+    <input type="text" placeholder="Email" id="email" />
+
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password" />
+
+    <label for="confermation_p">Confirm password</label>
+    <input type="password" placeholder="Password" id="confermation_p" />
+
+    <input type="submit" value="Login" class="submit" />
+
+    <a href="#" class="link">I have account.</a>
+  </form>
+</div>
+{% endblock content %}

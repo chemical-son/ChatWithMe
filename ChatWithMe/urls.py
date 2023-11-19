@@ -17,7 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+from ChatWithMe import views
+
 urlpatterns = [
+    path("", views.main, name='main'),
     path("admin/", admin.site.urls),
     path("chat/", include("chat.urls")),
+    path('auth/', include('authentication.urls')),
 ]

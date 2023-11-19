@@ -1,0 +1,21 @@
+{% extends 'main.html' %} {% block content %}
+<div class="container">
+  <div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+  </div>
+  <form>
+    <h3>Login</h3>
+
+    <label for="username">Username</label>
+    <input type="text" placeholder="Username" id="username" />
+
+    <label for="password">Password</label>
+    <input type="password" placeholder="Password" id="password" />
+
+    <input type="submit" value="Login" class="submit" />
+
+    <a href="#" class="link">I don't have account.</a>
+  </form>
+</div>
+{% endblock content %}

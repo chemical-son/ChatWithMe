@@ -1,0 +1,10 @@
+:root {
+    --main_color: black;
+    --secondry_color: white;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--main_color);
+    color: var(--secondry_color);
+}
