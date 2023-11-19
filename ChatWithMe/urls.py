@@ -19,6 +19,7 @@ from django.urls import path, include
 
 from ChatWithMe import views
 
+app_name = 'ChatWithMe'
 urlpatterns = [
     path("", views.main, name='main'),
     path("admin/", admin.site.urls),

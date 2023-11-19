@@ -8,3 +8,33 @@ body {
     background-color: var(--main_color);
     color: var(--secondry_color);
 }
+
+.header {
+    font-weight: bold;
+    font-size: larger;
+    background-color: #00548b;
+    padding: 15px;
+}
+
+.logo{
+    display: inline;
+}
+
+.logo {
+    color: var(--secondry_color);
+    text-decoration: none;
+}
+
+.login_bt {
+    color: var(--main_color);
+    position: absolute;
+    right: 20px;
+    background-color: var(--secondry_color);
+    padding: 4px;
+    border-radius: 5px;
+}
+
+.login_bt:hover{
+    background-color: var(--main_color);
+    color: var(--secondry_color);
+}
