@@ -9,11 +9,30 @@
     <title>{{page_name}}</title>
   </head>
   <body>
-    <div class="header">
-      <a href="{% url 'main'%}" class="logo">Chat with me</a>
+    {% if messages %}
+    <ul class="messages">
+      {% for message in messages %}
+      <li>{{ message}}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
 
+    <div class="header">
+      {% comment %} app logo {% endcomment %}
+      <a href="{% url 'main'%}" class="logo">Chat with me</a>
+      {% comment %} end app logo {% endcomment %} {% comment %} room search {%
+      endcomment %} {% comment %} end room search {% endcomment %} {% comment %}
+      login and logout buttons {% endcomment %} 
+      
+      {% if request.user.is_authenticated%}
+      <a href="{% url 'authentication:logout_user'%}" class="login_bt"
+        >Logout</a
+      >
+      {% elif page_name != 'Login User' and page_name != 'Register User' %}
       <a href="{% url 'authentication:login_user'%}" class="login_bt">Login</a>
+      {% endif %} {% comment %} end login and logout buttons {% endcomment %}
     </div>
+
     {% block content %} {% endblock content %}
   </body>
 </html>
