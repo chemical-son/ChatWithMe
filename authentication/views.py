@@ -13,6 +13,10 @@ def register_user(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
+
+            request.session["username"] = user.get_username()
+            request.session.save()
+
             return redirect("chat:index")
         messages.error(request, "Unsuccessful registration. Invalid information.")
 
@@ -29,25 +33,27 @@ def register_user(request):
 
 
 def login_user(request):
-
-    if request.method == 'POST':
+    if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username=form.cleaned_data.get('username')
-            password=form.cleaned_data.get('password')
+            username = form.cleaned_data.get("username")
+            password = form.cleaned_data.get("password")
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('chat:index')
+
+                request.session["username"] = user.get_username()
+                request.session.save()
+
+                return redirect("chat:index")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request,"Invalid username or password.")
-	
-    
+            messages.error(request, "Invalid username or password.")
+
     form = AuthenticationForm()
     context = {
-        'login_form': form,
+        "login_form": form,
         "page_name": "Login User",
     }
     return render(
@@ -57,7 +63,7 @@ def login_user(request):
     )
 
 
-@login_required(login_url='authentication:login_user')
+@login_required(login_url="authentication:login_user")
 def logout_user(request):
     logout(request)
     return redirect("main")

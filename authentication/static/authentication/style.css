@@ -38,3 +38,9 @@ body {
     background-color: var(--main_color);
     color: var(--secondry_color);
 }
+
+.error_messages{
+    background-color: red;
+    text-align: center;
+    padding: 5px;
+}
