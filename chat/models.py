@@ -18,9 +18,6 @@ class Message(models.Model):
     sender = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, related_name="sent_messages"
     )
-    receiver = models.ForeignKey(
-        get_user_model(), on_delete=models.CASCADE, related_name="received_messages"
-    )
 
     room = models.ForeignKey(Room, on_delete=models.CASCADE)
 
@@ -29,4 +26,4 @@ class Message(models.Model):
     status = models.CharField(max_length=10)  # this to store the message status
 
     def __str__(self):
-        return f"{self.sender} send to {self.receiver} in room: {self.Room.name}"
+        return f"{self.sender} send \"{self.content}\" to {self.room.room_name} room"

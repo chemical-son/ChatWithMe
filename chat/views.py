@@ -51,6 +51,11 @@ def room(request, room_id):
     }
 
     if current_user in room.room_mempers.all():
+        request.session["room_id"] = room_id
+        request.session.save()
+
+
+
         return render(request, "chat/room.html", context)
     else:
         messages.error(request, "You are unauthorized to access this room.")
