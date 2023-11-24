@@ -44,3 +44,8 @@ body {
     text-align: center;
     padding: 5px;
 }
+
+textarea{
+    font-size: 18px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

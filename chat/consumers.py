@@ -6,6 +6,7 @@ from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 
 from django.contrib.auth import get_user_model
+from django.utils import timezone
 
 from .models import Room, Message
 
@@ -39,7 +40,13 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Send message to room group
         await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "message": self.message, "sender": self.username}
+            self.room_group_name,
+            {
+                "type": "chat.message",
+                "message": self.message,
+                "sender": self.username,
+                "message_time": '"' + str(timezone.now()) + '"',
+            },
         )
 
     # Receive message from room group
@@ -53,6 +60,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
                 {
                     "message": self.message,
                     "sender": self.sender,
+                    "message_time": '"' + str(timezone.now()) + '"',
                 }
             )
         )

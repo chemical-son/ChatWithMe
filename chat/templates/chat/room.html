@@ -5,11 +5,22 @@
 {% if messages %}
 <input type="button" value="go back" onclick="history.back();" />
 {% else %}
-<textarea id="chat-log" cols="80" rows="20"></textarea><br />
+<textarea id="chat-log" cols="75" rows="15"></textarea><br />
 <input id="chat-message-input" type="text" /><br />
 <input id="chat-message-submit" type="button" value="Send" />
 {{ room.room_name|json_script:'room-name'}}
-{{ room.host.username|json_script:'host'}}
+{{ room.host.username|json_script:'host' }}
+
+<script>
+  chat_box = document.querySelector('#chat-log')
+  {% for message in room_messages %}
+    chat_box.value += '\n::' + "{{message.sender}}";
+    chat_box.value += ' > ' + "{{message.timestamp}}";
+    chat_box.value += '\n' + "{{message.content}}";
+  {% endfor %}
+  chat_box.scrollTop = chat_box.scrollHeight;
+</script>
+
 <script>
   const roomName = JSON.parse(document.getElementById("room-name").textContent);
 
@@ -19,7 +30,10 @@
 
   chatSoket.onmessage = function (e) {
     const data = JSON.parse(e.data);
-    document.querySelector("#chat-log").value += "::" + data.sender + "\n" + data.message + "\n";
+    document.querySelector("#chat-log").value +=
+      "\n::" + data.sender + ' > ' + data.message_time + "\n" + data.message;
+    
+    chat_box.scrollTop = chat_box.scrollHeight;
   };
 
   chatSoket.onclose = function (e) {

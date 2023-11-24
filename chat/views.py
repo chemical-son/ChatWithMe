@@ -3,9 +3,11 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import get_user_model
 from django.contrib import messages
+from django.http import JsonResponse
 
+import json
 
-from .models import Room
+from .models import Room, Message
 
 
 @login_required(login_url="authentication:login_user")
@@ -54,9 +56,15 @@ def room(request, room_id):
         request.session["room_id"] = room_id
         request.session.save()
 
+        # get room messages
+        # and send them to frontend
+        # to display it
+        current_room = Room.objects.get(id=room_id)
+        messages_for_current_room = Message.objects.filter(room=room)
 
+        context["room_messages"] = messages_for_current_room
 
         return render(request, "chat/room.html", context)
     else:
         messages.error(request, "You are unauthorized to access this room.")
-        return render(request, 'chat/room.html', context)
+        return render(request, "chat/room.html", context)
